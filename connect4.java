@@ -26,15 +26,17 @@ public class connect4 {
 	static int Gui = 0;
 
 	public static void main(String[] args) {
-		String mode = args[0];
-		boolean gui = false;
-		// use argument launch variable "G: to launch with Gui and "T" to launch in terminal
-		if (mode.equals("G")) {
-			gui = true;
+		
+		boolean gui = true;
+		// use argument launch variable "T' to launch with to launch in terminal
+		try {
+			if (args[0].equals("T")) 
+				gui = false;
+		} catch (Exception ex) {
+			// nothing I guess
 		}
-		if (mode.equals("T")) {
-			gui = false;
-		}
+			
+		
 
 		int input = -1;
 		int numberOfGames = 1;
@@ -234,10 +236,9 @@ public class connect4 {
 			StdDraw.setCanvasSize(975, 925);
 			StdDraw.setXscale(0, 10);
 			StdDraw.setYscale(0, 10);
-			// Animation
+			
 			Animation();
 
-			//
 			StdDraw.setPenColor(StdDraw.DARK_GRAY);
 			StdDraw.filledSquare(5, 5, 5);
 
@@ -258,7 +259,7 @@ public class connect4 {
 				int showop = 0;
 
 				pos = -1;
-				// take in
+				// take in || Buttons are PAIN
 				play: while (!StdDraw.isKeyPressed(' ')) {
 					if (choice != 0 && StdDraw.isMousePressed() && StdDraw.mouseX() > 0.5 && StdDraw.mouseX() < 7.5
 							&& StdDraw.mouseY() > 0.5 && StdDraw.mouseY() < 6.5) {
@@ -844,7 +845,7 @@ public class connect4 {
 				}
 			}
 
-			// drop down
+			// drop down || a.k.a. gravity
 			for (int i = 0; i < 7; i++) {
 				int count = 0;
 				for (int j = 5; j > -1; j--) {
@@ -1356,12 +1357,14 @@ public class connect4 {
 		// Exit the game
 		System.exit(0);
 	}
-
+	
+	// The Win condition check were definitely the most difficult thing to do in this project
 	public static void CheckWin() {
 		for (int i = 0; i < 2; i++) {
 			winner[i] = 0;
 		}
 		// Check for all the possible win conditions as well as for a possible draw.
+		// The Check for a draw is done in main()
 		// horizontal
 		for (int i = 0; i < 6; i++) {
 			for (int k = 0; k < 4; k++) {
